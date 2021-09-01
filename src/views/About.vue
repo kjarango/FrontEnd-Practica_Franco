@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <Nav />
     <div class="container">
       <div class="row justify-content-center align-items-center">
         <div class="card mt-5">
@@ -18,6 +19,14 @@
                   >We'll never share your email with anyone else.</small
                 >
               </div>
+              <!---->
+              <div class="form-group col">
+                <label for="inputState">Tipo deUsuario</label>
+                <select id="inputState" class="form-control" >
+                  <option ></option>
+                </select>
+              </div>
+              <!---->
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <input
@@ -32,9 +41,11 @@
                   class="form-check-input"
                   id="exampleCheck1"
                 />
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <label class="form-check-label" for="exampleCheck1"
+                  >Check me out</label
+                >
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary" >Submit</button>
             </form>
           </div>
         </div>
@@ -42,3 +53,17 @@
     </div>
   </div>
 </template>
+
+<script>
+import Nav from "@/components/Nav.vue";
+export default {
+  name: "about",
+  components: {
+    Nav,
+  },
+  data() {
+    return {
+    } 
+  },
+};
+</script>

@@ -7,43 +7,70 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     name: "Home",
     component: Home,
   },
   {
-    path: "/about",
+    path: "/signup",
     name: "About",
     component: () => import(/* webpackChunkName: "about" */ "../views/About.vue")
     
   },
+  
   {
-    path: "/cursosInscrip",
-    name: "CursosInscrip",
-    component: () => import( "../views/CursosInscrip.vue")
-    
+    path:"/",
+    name:"Bienvenida",
+    component: () => import("../views/Bienvenida.vue")    
   },
   {
-    path: '/preguntas',
-    name:'Preguntas',
-    component: () => import('../views/Preguntas.vue')
+    path: "/menu",
+    name: "MenuLateral",
+    component: () => import("../views/MenuLateral.vue"),
+    children: [
+      {
+        path: "/cursosInscrip",
+        name: "CursosInscrip",
+        component: () => import( "../views/CursosInscrip.vue")
+        
+      },
+      {
+        path: '/pre',
+        name:'Pre',
+        component: () => import('../views/Pre.vue')
+      },
+      {
+        path: '/hospedaje',
+        name: 'Hospedaje',
+        component: ()=> import('../views/Hospedaje.vue')
+      },
+      {
+        path: "/destinos",
+        name: "Destinos",
+        component: () => import( "../views/Destinos.vue")
+        
+      },
+      {
+        path:"/preguntas",
+        name: "Preguntas",
+        component: () => import( "../views/Preguntas.vue")
+      },
+      {
+        path:"/documentos",
+        name:"Documentos",
+        component: () => import( "../views/Documentos.vue")
+      }
+    ]
   },
   {
-    path: '/hospedaje',
-    name: 'Hospedaje',
-    component: ()=> import('../views/Hospedaje.vue')
+    path:"/pregadmin",
+        name:"PreguntasAdmin",
+        component: () => import( "../views/PreguntasAdmin.vue")
   },
   {
-    path: "/perfilUser",
-    name: "Perfil",
-    ccomponent: () => import( "../views/Perfil.vue")
-    
-  },
-  {
-    path: "/destinos",
-    name: "Destinos",
-    component: () => import( "../views/Destinos.vue")
-    
+    path:"/useradmin",
+        name:"UsusarioAdmin",
+        component: () => import( "../views/UsusarioAdmin.vue")
   }
 ];
 

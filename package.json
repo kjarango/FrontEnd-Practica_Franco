@@ -11,10 +11,13 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
+    "filepond": "^4.29.0",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.5",
+    "vue-filepond": "^7.0.0",
+    "vue-resource": "^1.5.3",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {

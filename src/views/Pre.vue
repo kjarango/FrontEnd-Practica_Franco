@@ -1,18 +1,6 @@
 <template>
   <div class="container Preguntas">
     <div class="row">
-      <!--<div class="card cardImagen mt-5">
-        <div class="card-body">
-          <div v-if="!image">
-            <h2>Select an image</h2>
-            <input type="file" @change="onFileChange">
-          </div>
-          <div v-else>
-            <img :src="image"  class="img-circle"/>
-            <button @click="removeImage">Remove image</button>
-          </div>
-        </div>
-      </div>-->
       <div class="card mt-5">
         <div class="card-body">
           <form @submit.prevent="agregarPersona()">
@@ -61,7 +49,9 @@
                 <label for="inputState">Escuela</label>
                 <select id="inputState" class="form-control" v-model="idioma">
                   <option selected>Choose...</option>
-                  <option v-for=" ing in ingle" :key="ing._id" :value="ing._id">{{ ing.nivel }}</option>
+                  <option v-for="ing in ingle" :key="ing._id" :value="ing._id">
+                    {{ ing.nivel }}
+                  </option>
                 </select>
               </div>
               <div class="form-group col-md-6">
@@ -130,78 +120,62 @@
 <script>
 export default {
   name: "Preguntas",
-  data(){
-    return{
-      datoPer:[],
-      ingle:[],
-      idioma:null,
-      image: '',
-      datos:{nombre:'',
-            docIdentidad:'',
-            telefono:'',
-            direccion:'',
-            correo:'',
-            fechaNacimiento:'',
-            ingles:''
-            }
-    }
+  data() {
+    return {
+      datoPer: [],
+      ingle: [],
+      idioma: null,
+      image: "",
+      datos: {
+        nombre: "",
+        docIdentidad: "",
+        telefono: "",
+        direccion: "",
+        correo: "",
+        fechaNacimiento: "",
+        ingles: "",
+      },
+    };
   },
-  created(){
+  created() {
     this.listarIngles();
   },
-  methods:{
-    agregarPersona(){
-        console.log(this.datos);
-        this.axios.post('/nuevaPersona', this.datos)
-        .then(res => {
-            this.datoPer.push(res.datos)
+  methods: {
+    agregarPersona() {
+      console.log(this.datos);
+      this.axios
+        .post("/nuevaPersona", this.datos)
+        .then((res) => {
+          this.datoPer.push(res.datos);
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e.response);
+        });
+    },
+    listarIngles() {
+      this.axios
+        .get("/ingles")
+        .then((res) => {
+          console.log(res.data);
+          this.hospedaje = res.data;
         })
-    },
-    listarIngles(){
-      this.axios.get('/ingles')
-      .then(res => {
-        console.log(res.data);
-        this.hospedaje = res.data;
-      })
-      .catch(e => {
-        console.log(e.response);
-      })
-    },
-        onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
-
-      reader.onload = (e) => {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
-    removeImage: function (e) {
-      this.image = '';
+        .catch((e) => {
+          console.log(e.response);
+        });
     }
-  }
+  },
 };
 </script>
 
 <style>
-.cardImagen{
+.cardImagen {
   margin-left: auto;
   margin-right: auto;
 }
 
-img{
-  border-radius:50%;
-  width: 50px; 
+img {
+  border-radius: 50%;
+  width: 50px;
   height: 50px;
 }
 </style>

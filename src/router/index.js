@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 //import Destino from "../views/Destinos"
-
+import store from '../store';
 Vue.use(VueRouter);
 
 const routes = [
@@ -31,7 +31,8 @@ const routes = [
       {
         path: "/cursosInscrip",
         name: "CursosInscrip",
-        component: () => import( "../views/CursosInscrip.vue")
+        component: () => import( "../views/CursosInscrip.vue"),
+        
         
       },
       {
@@ -53,12 +54,18 @@ const routes = [
       {
         path:"/preguntas",
         name: "Preguntas",
-        component: () => import( "../views/Preguntas.vue")
+        component: () => import( "../views/Preguntas.vue"),
+        
       },
       {
         path:"/documentos",
         name:"Documentos",
         component: () => import( "../views/Documentos.vue")
+      },
+      {
+        path:"/cursos",
+            name:"cursos",
+            component: () => import( "../views/cursos.vue")
       }
     ]
   },
@@ -72,6 +79,7 @@ const routes = [
         name:"UsusarioAdmin",
         component: () => import( "../views/UsusarioAdmin.vue")
   }
+  
 ];
 
 const router = new VueRouter({
@@ -79,5 +87,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  const rutaProtegida = to.matched.some(record => record.meta.requireAuth);
+
+  if(rutaProtegida && store.state.token === ''){
+    // console.log(store.state.token);
+    next({name: 'login'})
+
+  }else{
+    next()
+  }
+
+})
+
 
 export default router;

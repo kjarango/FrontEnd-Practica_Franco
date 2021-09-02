@@ -3,11 +3,22 @@
     <div id="nav"> 
       <router-link to="/useradmin">Usuarios</router-link> |
       <router-link to="/pregadmin">Preguntas</router-link>|
-      <router-link to="/">salir</router-link>
+      <router-link to="/"  @click="logout">salir</router-link>
     </div>
   </div>
 </template>
+<script>
+export default {
+  
+  methods: {
+    logout() {
+      this.$router.push('/');
+    }
+  }
+}
+</script>
 <style>
+
 
 #nav {
   padding: 20px;

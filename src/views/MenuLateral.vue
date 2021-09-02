@@ -16,9 +16,15 @@
           </a>
         </li>
         <li class="has-subnav">
-          <a href="CursosInscrip">
+          <a href="cursos">
             <i class="fa fa-folder-open fa-2x"></i>
             <span class="nav-text"> Cursos </span>
+          </a>
+        </li>
+        <li class="has-subnav">
+          <a href="CursosInscrip">
+            <i class="fa fa-folder-open fa-2x"></i>
+            <span class="nav-text"> Inscripcion </span>
           </a>
         </li>
         <li>
@@ -43,7 +49,7 @@
 
       <ul class="logout">
         <li>
-          <a href="#">
+          <a href="#" @click="logout">
             <i class="fa fa-power-off fa-2x"></i>
             <span class="nav-text"> Logout </span>
           </a>
@@ -56,7 +62,12 @@
 <script>
 export default {
   name: "Menulateral",
-};
+  methods: {
+    logout() {
+      this.$router.push('/');
+    }
+  }
+}
 </script>
 <style>
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);

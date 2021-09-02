@@ -7,6 +7,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
 
  
 Vue.use(VueAxios, axios)

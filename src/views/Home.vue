@@ -6,7 +6,7 @@
         <div class="card mt-5">
           <div class="card-header">Iniciar Sesion</div>
           <div class="card-body">
-            <form>
+            <form @submit.prevent="login()">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input
@@ -14,6 +14,7 @@
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
+                  v-model="usuario.correo"
                 />
                 <small id="emailHelp" class="form-text text-muted"
                   >We'll never share your email with anyone else.</small
@@ -25,31 +26,52 @@
                   type="password"
                   class="form-control"
                   id="exampleInputPassword1"
+                  v-model="usuario.pass"
                 />
-              </div>
-              <div class="form-group form-check">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            <div v-if="mensaje !== ''">
+              <p>{{mensaje}}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 import Nav from '@/components/Nav.vue';
-export default{
-    name: "Home",
-    components: {
-        Nav 
+import {  mapMutations, mapActions } from "vuex";
+//import router from '../router/index';mapState,
+
+export default {
+  components:{
+    Nav
   },
+  data() {
+    return {
+      usuario: {correo: '', pass: ''},
+      mensaje: ''
+    }
+  },
+  methods:{
+    ...mapMutations(['obtenerUsuario']),
+    ...mapActions(['guardarUsuario', 'leerToken', 'cerrarSesion']),
+    login(){
+      this.axios.post('/login', this.usuario)
+        .then(res => {
+          // console.log(res.data.token);
+          const token = res.data.token;
+          // this.usuarioDB = res.data.usuarioDB
+          this.guardarUsuario(token);
+          //this.$router.push('/menu');
+        })
+        .catch(err => {
+          console.log(err.response);
+          this.mensaje = 'todo mal';
+        })
+    }
+  }
 }
 </script>

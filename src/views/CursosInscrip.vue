@@ -41,7 +41,7 @@
         </div>
       </form>
       </div>
-      <br>
+      <br><!--
       <div class="col-sm-4 cardIscrip mb-5">
         <div class="card mt-5">
           <div class="card-body">
@@ -51,6 +51,21 @@
             </p>
             <a href="#" class="btn btn-primary mx-2">Cancelar</a>
             <a href="#" class="btn btn-primary">OK</a>
+          </div>
+        </div>
+      </div>-->
+      <div class="col-sm-4 cardIscrip mb-5">
+        <div class="card mt-5">
+          <div class="card-body">
+            <h5 class="card-title">Realizar Matricula</h5>
+            
+            <div>
+              <b-button v-b-modal.modal-1>Matricula</b-button>
+
+              <b-modal id="modal-1" title="BootstrapVue">
+                <p class="my-4">Valor De la Matricula</p>
+              </b-modal>
+            </div>
           </div>
         </div>
       </div>

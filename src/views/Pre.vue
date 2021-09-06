@@ -118,6 +118,7 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
 export default {
   name: "Preguntas",
   data() {
@@ -140,11 +141,19 @@ export default {
   created() {
     this.listarIngles();
   },
+  computed: {
+    ...mapState(['token'])
+  },
   methods: {
     agregarPersona() {
+      let config = {
+        headers: {
+          token : this.token 
+        }
+      }
       console.log(this.datos);
       this.axios
-        .post("/nuevaPersona", this.datos)
+        .post("/nuevaPersona", this.datos, config)
         .then((res) => {
           this.datoPer.push(res.datos);
         })
@@ -153,8 +162,13 @@ export default {
         });
     },
     listarIngles() {
+      let config = {
+        headers: {
+          token : this.token 
+        }
+      }
       this.axios
-        .get("/ingles")
+        .get("/ingles", config)
         .then((res) => {
           console.log(res.data);
           this.hospedaje = res.data;

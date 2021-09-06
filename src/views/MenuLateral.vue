@@ -49,7 +49,7 @@
 
       <ul class="logout">
         <li>
-          <a href="#" @click="logout">
+          <a href="#" @click="cerrarSesion()" v-if="estaActivo">
             <i class="fa fa-power-off fa-2x"></i>
             <span class="nav-text"> Logout </span>
           </a>
@@ -60,12 +60,15 @@
   </div>
 </template>
 <script>
+import {  mapActions, mapGetters } from "vuex";
 export default {
   name: "Menulateral",
   methods: {
-    logout() {
-      this.$router.push('/');
-    }
+    ...mapActions(['cerrarSesion'])
+    
+  },
+  computed:{
+    ...mapGetters(['estaActivo'])
   }
 }
 </script>

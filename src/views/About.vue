@@ -14,7 +14,7 @@
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  v-model="datos.correo"
+                  v-model="usuario.correo"
                 />
                 <small id="emailHelp" class="form-text text-muted"
                   >We'll never share your email with anyone else.</small
@@ -28,24 +28,24 @@
                   class="form-control"
                   id="exampleInputEmail"
                   aria-describedby="emailHelp"
-                  v-model="datos.role"
+                  v-model="usuario.role"
                 />
                 <small id="emailHelp1" class="form-text text-muted"
                   >Ingrese una de estas dos opciones ADMIN o USER</small
                 >
               </div>
               <div class="form-group">
-                <label for="exampleInputEmail2">Tipo de Usuario</label>
+                <label for="exampleInputEmail2">CONTRASEÑA</label>
                 <input
                   type="password"
                   class="form-control"
                   id="exampleInputEmail2"
                   aria-describedby="emailHelp"
-                  v-model="datos.pass"
+                  v-model="usuario.pass"
                 />
               </div>
               
-              <button type="submit" class="btn btn-primary" >Submit</button>
+              <button type="submit" class="btn btn-primary" >Registrame</button>
             </form>
           </div>
         </div>
@@ -55,40 +55,35 @@
 </template>
 
 <script>
-import Nav from "@/components/Nav.vue";
+import Nav from '@/components/Nav.vue';
+
+
 export default {
-  name: "about",
-  components: {
-    Nav,
+  components:{
+    Nav
   },
   data() {
     return {
-      datos:{
-        correo: "",
-        pass: "",
-        role: ""
-      },
-      datoPer:[]
-    } 
+      usuarios:[],
+      usuario: {correo: '', pass: '', role:''},
+      mensaje: ''
+    }
   },
   methods:{
+    
     agregaruser(){
-      console.log(this.datos);
-      this.axios
-        .post("/nuevaPersona", this.datos)
-        .then((res) => {
-          this.datoPer.push(res.datos);
-          if(this.datos.role == 'ADMIN'){
-            this.$router.push('/useradmin')
-          }else{ 
-            this.$router.push('/Destinos')}
+      
+      this.axios.post('/nuevaPersona', this.usuario)
+        .then(res => {
+          console.log(res.data);
+          this.usuarios.push(res.data)   
+          this.$router.push('/login');
         })
-        .catch((e) => {
-          console.log(e.response);
-        });
-
+        .catch(err => {
+          console.log(err);
+          //this.mensaje = err.response.data.mensaje ;
+        })
     }
-
   }
-};
+}
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h3 class="mt-5">Tipos de Cursos</h3>
     <div class="row">
       <div class="col-sm-4">
         <div class="card mt-5">

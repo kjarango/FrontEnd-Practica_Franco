@@ -1,15 +1,14 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import "bootstrap";
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import store from "./store.js"
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import Vuex from 'vuex'
+import "bootstrap";
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-Vue.use(Vuex)
+import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
  
 Vue.use(VueAxios, axios)
@@ -25,6 +24,7 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  store,
   render: function (h) {
     return h(App);
   },

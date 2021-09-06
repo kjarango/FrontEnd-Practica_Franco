@@ -1,6 +1,8 @@
 <template>
     <div class="container Hospedaje">
+        <h3 class=" mt-5">Tipos de Hospedaje</h3>
         <div class="row mt-5">
+            
             <div class="col-sm-4">
                 <div class="card" style="width: 20rem;">
                     <img class="card-img-top" src="../assets/residencia-universitaria.jpg" alt="Card image cap">

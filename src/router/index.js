@@ -1,14 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-//import Destino from "../views/Destinos"
 import store from '../store';
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/login",
-    name: "Home",
+    name: "Home", 
     component: Home,
   },
   {
@@ -21,58 +20,60 @@ const routes = [
   {
     path:"/",
     name:"Bienvenida",
-    component: () => import("../views/Bienvenida.vue")    
+    component: () => import(/* webpackChunkName: "about" */"../views/Bienvenida.vue")    
   },
   {
     path: "/menu",
     name: "MenuLateral",
-    component: () => import("../views/MenuLateral.vue"),
+    component: () => import(/* webpackChunkName: "about" */ "../views/MenuLateral.vue"),
     children: [
       {
         path: "/cursosInscrip",
         name: "CursosInscrip",
-        component: () => import( "../views/CursosInscrip.vue"),
+        component: () => import(/* webpackChunkName: "about" */ "../views/CursosInscrip.vue"),
         
         
       },
       {
         path: '/pre',
         name:'Pre',
-        component: () => import('../views/Pre.vue')
+        component: () => import(/* webpackChunkName: "about" */'../views/Pre.vue')
+        ,
+        meta: {requireAuth: true}
       },
       {
         path: '/hospedaje',
         name: 'Hospedaje',
-        component: ()=> import('../views/Hospedaje.vue')
+        component: ()=> import(/* webpackChunkName: "about" */'../views/Hospedaje.vue')
       },
       {
         path: "/destinos",
         name: "Destinos",
-        component: () => import( "../views/Destinos.vue")
+        component: () => import(/* webpackChunkName: "about" */ "../views/Destinos.vue")
         
       },
       {
         path:"/preguntas",
         name: "Preguntas",
-        component: () => import( "../views/Preguntas.vue"),
+        component: () => import(/* webpackChunkName: "about" */ "../views/Preguntas.vue"),
         
       },
       {
         path:"/documentos",
         name:"Documentos",
-        component: () => import( "../views/Documentos.vue")
+        component: () => import(/* webpackChunkName: "about" */ "../views/Documentos.vue")
       },
       {
         path:"/cursos",
             name:"cursos",
-            component: () => import( "../views/cursos.vue")
+            component: () => import(/* webpackChunkName: "about" */ "../views/cursos.vue")
       }
     ]
   },
   {
     path:"/pregadmin",
         name:"PreguntasAdmin",
-        component: () => import( "../views/PreguntasAdmin.vue")
+        component: () => import(/* webpackChunkName: "about" */ "../views/PreguntasAdmin.vue")
   },
   {
     path:"/useradmin",
@@ -91,9 +92,9 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const rutaProtegida = to.matched.some(record => record.meta.requireAuth);
 
-  if(rutaProtegida && store.state.token === ''){
-    // console.log(store.state.token);
-    next({name: 'login'})
+  if (rutaProtegida && localStorage.getItem('token') === null){
+    console.log(store.state.token);
+    next({name: 'Home'})
 
   }else{
     next()

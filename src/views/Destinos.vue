@@ -1,7 +1,7 @@
 <template>
     <div class="container Destinos">
-        
-        <div class="row mt-5 mx-auto">
+        <h3 class="mt-5">Nuestros Destinos</h3>
+        <div class="row mt-2 mx-auto">
             <div class="card mb-3" style="width: 70rem;">
                 <img class="card-img-top"  src="../assets/Australia.jpg" alt="Card image cap">
                 <div class="card-body">

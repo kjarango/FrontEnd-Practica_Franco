@@ -29,20 +29,20 @@
                   v-model="usuario.pass"
                 />
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Ingresar</button>
             </form>
             <div v-if="mensaje !== ''">
               <p>{{mensaje}}</p>
             </div>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   </div>
 </template>
 <script>
 import Nav from '@/components/Nav.vue';
-import {  mapMutations, mapActions } from "vuex";
+import {  mapMutations,mapActions } from "vuex";
 //import router from '../router/index';mapState,
 
 export default {
@@ -57,19 +57,19 @@ export default {
   },
   methods:{
     ...mapMutations(['obtenerUsuario']),
-    ...mapActions(['guardarUsuario', 'leerToken', 'cerrarSesion']),
+    ...mapActions(['guardarUsuario','leerToken']),
     login(){
       this.axios.post('/login', this.usuario)
         .then(res => {
-          // console.log(res.data.token);
+          console.log(res.data);
           const token = res.data.token;
           // this.usuarioDB = res.data.usuarioDB
           this.guardarUsuario(token);
           //this.$router.push('/menu');
         })
         .catch(err => {
-          console.log(err.response);
-          this.mensaje = 'todo mal';
+          console.log(err);
+          //this.mensaje = err.response.data.mensaje ;
         })
     }
   }

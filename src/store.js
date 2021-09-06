@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
-
 import router from './router'
 
 // para decodificar el jwt
@@ -23,7 +19,20 @@ export default new Vuex.Store({
         state.datosDb = ''
       }else{
         state.datosDb = decode(payload);
-        router.push('/menu')
+        router.push({name:'Destinos'})
+      }
+    },
+    registrarUsuario(state, payload){
+      state.token = payload;
+      if(payload === ''){
+        state.datosDb = ''
+      }else{
+        state.datosDb = decode(payload);
+        if(this.state.datosDb.role == 'ADMIN' ){
+          router.push({name:'UsusarioAdmin'})
+        }else{
+        router.push({name:'Destinos'})
+        }
       }
     }
   },
@@ -35,7 +44,7 @@ export default new Vuex.Store({
     cerrarSesion({commit}){
       commit('obtenerUsuario', '');
       localStorage.removeItem('token');
-      router.push('/login');
+      router.push({name:'Home'});
     },
     leerToken({commit}){
 

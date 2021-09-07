@@ -1,7 +1,7 @@
 <template>
     <div class="container Destinos">
         <h3 class="mt-5">Nuestros Destinos</h3>
-        <div class="row mt-2 mx-auto">
+        <div class="row mt-2 ml-5">
             <div class="card mb-3" style="width: 70rem;">
                 <img class="card-img-top"  src="../assets/Australia.jpg" alt="Card image cap">
                 <div class="card-body">
@@ -11,7 +11,7 @@
             </div>
             
             <div class="col-sm-6">
-                <div class="card mt-3" style="width: 30rem;">
+                <div class="card mt-3" style="width: 25rem;">
                     <img class="card-img-top" src="../assets/sidney.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">SIDNEY</h5>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="card mt-3" style="width: 30rem;">
+                <div class="card mt-3" style="width: 25rem;">
                     <img class="card-img-top" src="../assets/brisbane.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">BRISBANE</h5>
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <hr>
-            <div class="card w-75 mt-3 info justify-content-center">
+            <div class="card w-75 my-5 info justify-content-center cursos">
                 <div class="card-body">
                     <h5 class="card-title">SOBRE NUESTRAS ESCUELAS</h5>
                     <p class="card-text">- Nuestra escuela está situada en un barrio estudiantil.</p>
@@ -42,16 +42,7 @@
                     <p class="card-text">- A 10 minutos andando de la estación principal</p>
                 </div>
                 </div>
-           <div class="card w-75 my-3 info">
-            <div class="card-body">
-                <h5 class="card-title">INCLUYE</h5>
-                <p class="card-text">- Pack de bienvenida</p>
-                <p class="card-text">- Programa</p>
-                <p class="card-text">- Material académico</p>
-                <p class="card-text">- Alojamiento</p>
-                
-            </div>
-            </div>
+
         </div>
     </div>
 </template>
@@ -74,4 +65,11 @@ export default{
 .card-title{
     font-weight: bold;
 }
+
+.cursos{
+  background-color:#14254c;
+  color:aliceblue
+}
 </style>
+
+

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row my-3">
         
-        <div class="file-upload my-3">
+        <div class="file-upload my-3 col-md-6">
             <label for="inputfile"> Adjunta Tu hora de Vida</label>
           <input id="inputfile" type="file" @change="onFileChange" />
           <button
@@ -14,7 +14,7 @@
             Upload file
           </button>
         </div>
-                <div class="file-upload my-3">
+                <div class="file-upload my-3 my-3 col-md-6">
             <label for="inputfile"> Adjunta la copia de tu pasaporte</label>
           <input id="inputfile" type="file" @change="onFileChange" />
           <button
@@ -25,7 +25,7 @@
             Upload file
           </button>
         </div>
-            <div class="file-upload my-3">
+            <div class="file-upload my-3 my-3 col-md-6">
             <label for="inputfile"> Adjunta la copia de tu Visa</label>
           <input id="inputfile" type="file" @change="onFileChange" />
           <button
@@ -81,7 +81,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   font-size: 1rem;
-  width: 60%;
+  width: 20%;
   margin: 0 auto;
 }
 

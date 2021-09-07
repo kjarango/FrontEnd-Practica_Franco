@@ -1,11 +1,14 @@
 <template>
   <div class="container Preguntas">
     <div class="row">
-      <div class="card mt-5">
+      <h5 class="mt-3 justify-content-center">
+        Perfil de usuario
+      </h5>
+      <div class="card mt-5 ml-5 col-md-11 justify-content-center cursos">
         <div class="card-body">
-          <form @submit.prevent="agregarPersona()">
+          <form>
             <div class="form-row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-12">
                 <label for="inputAddress">Nombre completo</label>
                 <input
                   type="text"
@@ -26,42 +29,34 @@
                 />
               </div>
               <div class="form-group col-md-6">
-                <label for="inputEmail">Fecha Nacieminto</label>
+                <label for="inputEmail3">Telefono</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  id="inputEmail"
-                  placeholder="fechaNaciemiento"
-                  v-model="datos.fechaNacimiento"
+                  id="inputEmail3"
+                  placeholder="telefono"
+                  v-model="datos.telefono"
                 />
               </div>
               <div class="form-group col-md-6">
-                <label for="inputEmail2">Nivel Ingles</label>
+                <label for="inputEmail2">direccion</label>
                 <input
                   type="text"
                   class="form-control"
                   id="inputEmail2"
-                  placeholder="Nivel de ingles"
-                  v-model="datos.ingles"
+                  placeholder="direccion residencia"
+                  v-model="datos.direccion"
                 />
               </div>
-              <div class="form-group col-md-4">
-                <label for="inputState">Escuela</label>
-                <select id="inputState" class="form-control" v-model="idioma">
-                  <option selected>Choose...</option>
-                  <option v-for="ing in ingle" :key="ing._id" :value="ing._id">
-                    {{ ing.nivel }}
-                  </option>
-                </select>
-              </div>
+
               <div class="form-group col-md-6">
-                <label for="inputPassword3">Telefono</label>
+                <label for="inputPassword7">Nivel de Ingles</label>
                 <input
-                  type="number"
+                  type="text"
                   class="form-control"
-                  id="inputPassword3"
-                  placeholder="telefono"
-                  v-model="datos.telefono"
+                  id="inputPassword7"
+                  placeholder="Nivel de ingles"
+                  v-model="datos.ingles"
                 />
               </div>
               <div class="form-group col-md-6">
@@ -75,41 +70,43 @@
                 />
               </div>
               <div class="form-group col-md-6">
-                <label for="inputAddress1">Direccion</label>
+                <label for="inputAddress10">Fecha Nacimiento</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="inputAddress1"
-                  placeholder="Email"
-                  v-model="datos.direccion"
+                  id="inputAddress10"
+                  placeholder="fecha naciemiento"
+                  v-model="datos.fechaNacimiento"
                 />
               </div>
             </div>
+
             <div class="form-row">
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-6">
                 <label for="inputState">Pais</label>
-                <select id="inputState" class="form-control">
+                <select id="inputState" class="form-control" v-model="contrieP">
                   <option selected>Choose...</option>
-                  <option>...</option>
+                  <option v-for="country in countries_list" :key="country">
+                    {{ country.name }}
+                  </option>
                 </select>
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-6">
                 <label for="inputState1">Estado</label>
-                <select id="inputState1" class="form-control">
+                <select
+                  id="inputState1"
+                  class="form-control"
+                  v-model="contrieC"
+                >
                   <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-              <div class="form-group col-md-4">
-                <label for="inputState2">Ciudad</label>
-                <select id="inputState2" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
+                  <option v-for="country in countries_list" :key="country">
+                    {{ country.capital }}
+                  </option>
                 </select>
               </div>
             </div>
-
-            <button type="submit" class="btn btn-primary">Guradar</button>
+            <button type="submit" class="btn btn-warning mx-2">Editar</button>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
           </form>
         </div>
       </div>
@@ -118,15 +115,12 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import axios from "axios";
 export default {
   name: "Preguntas",
   data() {
     return {
       datoPer: [],
-      ingle: [],
-      idioma: null,
-      image: "",
       datos: {
         nombre: "",
         docIdentidad: "",
@@ -136,60 +130,50 @@ export default {
         fechaNacimiento: "",
         ingles: "",
       },
+      countries_list: [],
+      contrieP: null,
+      contrieC: null,
     };
   },
   created() {
-    this.listarIngles();
-  },
-  computed: {
-    ...mapState(['token'])
+    this.datosId();
+    this.contries();
   },
   methods: {
-    agregarPersona() {
-      let config = {
-        headers: {
-          token : this.token 
-        }
-      }
-      console.log(this.datos);
+    datosId(id) {
+      console.log(id);
       this.axios
-        .post("/nuevaPersona", this.datos, config)
+        .get(`/datos/${id}`)
         .then((res) => {
-          this.datoPer.push(res.datos);
+          this.datos = res.data;
         })
         .catch((e) => {
           console.log(e.response);
         });
     },
-    listarIngles() {
-      let config = {
-        headers: {
-          token : this.token 
-        }
-      }
-      this.axios
-        .get("/ingles", config)
-        .then((res) => {
-          console.log(res.data);
-          this.hospedaje = res.data;
-        })
-        .catch((e) => {
-          console.log(e.response);
-        });
-    }
+  },
+  mounted() {
+    axios
+      .get("https://restcountries.eu/rest/v2/region/americas")
+      .then((response) => {
+        console.log(response);
+        this.countries_list = response.data;
+      })
+      .catch((error) => console.log(error));
   },
 };
 </script>
 
 <style>
-.cardImagen {
+h5 {
   margin-left: auto;
   margin-right: auto;
+  font-weight: bold;
 }
 
-img {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+
+.cursos {
+  background-color: #14254c;
+  color: aliceblue;
 }
 </style>

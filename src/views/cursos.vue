@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <h3 class="mt-5">Tipos de Cursos</h3>
-    <div class="row">
+    <div class="row ml-5">
       <div class="col-sm-4">
-        <div class="card mt-5">
+        <div class="card mt-5 cursos">
           <div class="card-body">
             <h5 class="card-title">Ingles General</h5>
             <p class="card-text">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="card mt-5">
+        <div class="card mt-5 cursos">
           <div class="card-body">
             <h5 class="card-title">Ingles Avanzado</h5>
             <p class="card-text">
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="card mt-5">
+        <div class="card mt-5 cursos">
           <div class="card-body">
             <h5 class="card-title">Ingles Tecnico</h5>
             <p class="card-text">
@@ -53,3 +53,10 @@
     </div>
   </div>
 </template>
+ 
+<style >
+.cursos{
+  background-color:#14254c;
+  color:aliceblue
+}
+</style>

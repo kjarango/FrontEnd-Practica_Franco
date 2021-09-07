@@ -1,216 +1,182 @@
 <template>
-  <div class="Menulateral">
-    <div class="area"></div>
-    <nav class="main-menu">
-      <ul>
-        <li class="has-subnav">
+  <div class="sidebar">
+    <div class="sidenav">
+      <ul class="sidebar-menu metismenu nav-links acorh" id="sidebar-menu">
+        <li class="active">
           <a href="Destinos">
-            <i class="fa fa-map-marker fa-2x"></i>
+            <i class="fa fa-map-marker"></i>
             <span class="nav-text"> Destinos </span>
           </a>
         </li>
-        <li class="has-subnav">
+        <li>
           <a href="Hospedaje">
-            <i class="fa fa-home fa-2x"></i>
+            <i class="fa fa-home"></i>
             <span class="nav-text"> Hospedaje </span>
           </a>
         </li>
-        <li class="has-subnav">
+        <li>
           <a href="cursos">
-            <i class="fa fa-folder-open fa-2x"></i>
+            <i class="fa fa-bar-chart-o"></i>
             <span class="nav-text"> Cursos </span>
           </a>
         </li>
-        <li class="has-subnav">
+        <li>
           <a href="CursosInscrip">
-            <i class="fa fa-folder-open fa-2x"></i>
+            <i class="fa fa-bar-chart-o"></i>
             <span class="nav-text"> Inscripcion </span>
           </a>
         </li>
         <li>
           <a href="Preguntas">
-            <i class="fa fa-bar-chart-o fa-2x"></i>
+            <i class="fa fa-bar-chart-o"></i>
             <span class="nav-text"> Preguntas </span>
           </a>
         </li>
         <li>
           <a href="Pre">
-            <i class="fa fa-info fa-2x"></i>
-            <span class="nav-text"> Perfil </span>
+            <i class="fa fa-info"></i>
+            <span class="nav-text"> Mi Perfil </span>
           </a>
         </li>
         <li>
           <a href="Documentos">
-            <i class="fa fa-folder-open fa-2x"></i>
-            <span class="nav-text"> Documentos </span>
+            <i class="fa fa-folder-open"></i>
+            <span class="nav-text"> Archivos </span>
           </a>
         </li>
       </ul>
-
       <ul class="logout">
         <li>
           <a href="#" @click="cerrarSesion()" v-if="estaActivo">
-            <i class="fa fa-power-off fa-2x"></i>
+            <i class="fa fa-power-off"></i>
             <span class="nav-text"> Logout </span>
           </a>
         </li>
       </ul>
-    </nav>
-    <router-view />
+    </div>
+    <section class="ml-100">
+      <router-view />
+    </section>
   </div>
 </template>
 <script>
-import {  mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Menulateral",
   methods: {
-    ...mapActions(['cerrarSesion'])
-    
+    ...mapActions(["cerrarSesion"]),
   },
-  computed:{
-    ...mapGetters(['estaActivo'])
-  }
-}
+  computed: {
+    ...mapGetters(["estaActivo"]),
+  },
+};
 </script>
+
 <style>
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-
-@import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
-.fa-2x {
-  font-size: 2em;
-}
-.fa {
-  position: relative;
-  display: table-cell;
-  width: 60px;
-  height: 36px;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 20px;
-}
-
-.main-menu:hover,
-nav.main-menu.expanded {
-  width: 250px;
-  overflow: visible;
-}
-
-.main-menu {
-  background: #14254c;
-  border-right: 1px solid #e5e5e5;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  height: 100vh;
+/** The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 150px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
   left: 0;
-  width: 60px;
-  overflow: hidden;
-  -webkit-transition: width 0.05s linear;
-  transition: width 0.05s linear;
-  /*-webkit-transform:translateZ(0) scale(1,1);*/
-  z-index: 1000;
+  background-color: #14254c; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
 }
 
-.main-menu > ul {
-  margin: 7px 0;
+section {
+  margin-left: 150px;
 }
 
-.main-menu li {
-  position: relative;
-  display: block;
-  width: 250px;
-}
-
-.main-menu li > a {
-  position: relative;
-  display: table;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: #999;
-  font-family: arial;
-  font-size: 14px;
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 3px 0px 0px;
   text-decoration: none;
-  /*-webkit-transform:translateZ(0) scale(1,1);*/
-  -webkit-transition: all 0.1s linear;
-  transition: all 0.1s linear;
-}
-
-.main-menu .nav-icon {
-  position: relative;
-  display: table-cell;
-  width: 60px;
-  height: 36px;
-  text-align: center;
-  vertical-align: middle;
   font-size: 18px;
+  color: #c51d1d;
+  display: block;
 }
 
-.main-menu .nav-text {
-  position: relative;
-  display: table-cell;
-  vertical-align: middle;
-  width: 190px;
-  font-family: "Titillium Web", sans-serif;
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
 }
 
-.main-menu > ul.logout {
-  position: absolute;
-  left: 0;
-  bottom: 0;
+ul li {
+  list-style: none;
 }
 
-.no-touch .scrollable.hover {
-  overflow-y: hidden;
+/* Style page content */
+.main {
+  margin-left: 160px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
 }
 
-.no-touch .scrollable.hover:hover {
-  overflow-y: auto;
-  overflow: visible;
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
 }
-
-a:hover,
-a:focus {
-  text-decoration: none;
-}
-
-nav {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-
-nav ul,
-nav li {
-  outline: 0;
+/*fin del estilo del menu lateral*/
+ul.acorh,
+ul.acorh * {
   margin: 0;
   padding: 0;
+  border: 0;
 }
-.main-menu li:hover > a,
-nav.main-menu li.active > a,
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus,
-.dropdown-menu > .active > a,
-.dropdown-menu > .active > a:hover,
-.dropdown-menu > .active > a:focus,
-.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
-.dashboard-page nav.dashboard-menu ul li.active a {
-  color: #fff;
-  background-color: #5fa2db;
-}
-.area {
-  float: left;
-  background: #e2e2e2;
+ul.acorh {
+  margin: 10px auto;
+  padding: 0;
+  list-style: none;
   width: 100%;
-  height: 100%;
+  font-size: 18px;
 }
-@font-face {
-  font-family: "Titillium Web";
-  font-style: normal;
-  font-weight: 500;
-  src: local("Titillium WebLight"), local("TitilliumWeb-Light"),
-    url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff)
-      format("woff");
+ul.acorh li {
+  list-style: none;
+}
+ul.acorh li a {
+  display: block;
+  padding: 10px 10px 10px 20px;
+  color: #eee;
+  border-bottom: 1px solid #14254c;
+  border-top: 1px solid #14254c;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+ul.acorh li ul {
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  transition: 0.3s all ease-in;
+}
+ul.acorh li li a {
+  padding: 10px 10px 10px 40px;
+  background: #14254c;
+  color: #ccc;
+  font-size: 16px;
+  border: 0;
+  border-top: 1px solid #14254c;
+  border-bottom: 1px solid var(--color-divider);
+  box-sizing: border-box;
+}
+ul.acorc li li:last-child a {
+  border-bottom: 0;
+}
+ul.acorh li:hover ul {
+  max-height: 300px;
+  transition: 0.3s all ease-in;
+}
+ul.acorh li a:hover {
+  background: #666;
+  color: #fff;
 }
 </style>

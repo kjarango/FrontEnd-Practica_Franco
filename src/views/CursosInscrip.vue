@@ -94,7 +94,7 @@
           </div>
         </div>
       </div>
-      <div class="card col-12 my-3 info ml-5">
+      <div class="card cardMatric col-12 my-3 info ml-5">
         <div class="card-body">
           <h5 class="card-title">INCLUYE</h5>
           <p class="card-text">- Pack de bienvenida</p>

@@ -10,7 +10,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: '',
-    datosDb: ''
+    datosDb: '',
+    nombre:'',
+    id:'',
+    docIdentidad:'',
+    telefono:'',
+    direccion:'',
+    fechaNacimiento:'',
+    pais:'',
+    ciudad:'',
+    ingles:'',
+    inscripcion:'',
+    role:''
   },
   mutations: {
     obtenerUsuario(state, payload){
@@ -19,7 +30,18 @@ export default new Vuex.Store({
         state.datosDb = ''
       }else{
         state.datosDb = decode(payload);
-        router.push({name:'Destinos'})
+        state.nombre = state.datosDb.data.nombre
+        state.id = state.datosDb.data._id
+        state.docIdentidad  = state.datosDb.data.docIdentidad
+        state.telefono = state.datosDb.data.telefono
+        state.direccion = state.datosDb.data.direccion
+        state.fechaNacimiento = state.datosDb.data.fechaNacimiento
+        state.pais = state.datosDb.data.pais
+        state.ciudad = state.datosDb.data.ciudad
+        state.ingles = state.datosDb.data.ingles
+        state.inscripcion = state.datosDb.data.inscripcion
+        state.role = state.datosDb.data.role
+console.log(state.role )
       }
     },
     registrarUsuario(state, payload){
@@ -28,7 +50,7 @@ export default new Vuex.Store({
         state.datosDb = ''
       }else{
         state.datosDb = decode(payload);
-        if(this.state.datosDb.role == 'ADMIN' ){
+        if(this.state.datosDb.data.role == 'ADMIN' ){
           router.push({name:'UsusarioAdmin'})
         }else{
         router.push({name:'Destinos'})

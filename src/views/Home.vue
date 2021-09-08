@@ -43,7 +43,7 @@
 <script>
 import Nav from '@/components/Nav.vue';
 import {  mapMutations,mapActions } from "vuex";
-//import router from '../router/index';mapState,
+import router from '../router/index';
 
 export default {
   components:{
@@ -56,16 +56,19 @@ export default {
     }
   },
   methods:{
-    ...mapMutations(['obtenerUsuario']),
-    ...mapActions(['guardarUsuario','leerToken']),
+    ...mapMutations(['obtenerUsuario']), 
+    ...mapActions(['guardarUsuario']),
     login(){
       this.axios.post('/login', this.usuario)
         .then(res => {
           console.log(res.data);
           const token = res.data.token;
-          // this.usuarioDB = res.data.usuarioDB
-          this.guardarUsuario(token);
-          //this.$router.push('/menu');
+          this.guardarUsuario(token)
+          if(this.$store.state.datosDb.data.role == 'ADMIN' ){
+          router.push({name:'UsusarioAdmin'})
+          }else{
+          router.push({name:'Destinos'})
+          }
         })
         .catch(err => {
           console.log(err);

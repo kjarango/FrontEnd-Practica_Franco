@@ -86,7 +86,7 @@
                 <label for="inputState">Pais</label>
                 <select id="inputState" class="form-control" v-model="contrieP">
                   <option selected>Choose...</option>
-                  <option v-for="country in countries_list" :key="country">
+                  <option v-for="(country,index) in countries_list" :key="index">
                     {{ country.name }}
                   </option>
                 </select>
@@ -99,14 +99,14 @@
                   v-model="contrieC"
                 >
                   <option selected>Choose...</option>
-                  <option v-for="country in countries_list" :key="country">
+                  <option v-for="(country, idx) in countries_list" :key="idx">
                     {{ country.capital }}
                   </option>
                 </select>
               </div>
             </div>
-            <button type="submit" class="btn btn-warning mx-2">Editar</button>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <button type="submit" class="btn btn-warning mx-2" @click="datosId()">Editar</button>
+            <button type="submit" class="btn btn-primary" :text="id"></button>
           </form>
         </div>
       </div>
@@ -116,6 +116,7 @@
 
 <script>
 import axios from "axios";
+import {  mapMutations} from "vuex";
 export default {
   name: "Preguntas",
   data() {
@@ -137,19 +138,12 @@ export default {
   },
   created() {
     this.datosId();
-    this.contries();
+    
   },
   methods: {
-    datosId(id) {
-      console.log(id);
-      this.axios
-        .get(`/datos/${id}`)
-        .then((res) => {
-          this.datos = res.data;
-        })
-        .catch((e) => {
-          console.log(e.response);
-        });
+     ...mapMutations(['obtenerUsuario']), 
+    datosId() {
+      console.log('hola')
     },
   },
   mounted() {
@@ -159,7 +153,7 @@ export default {
         console.log(response);
         this.countries_list = response.data;
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.response));
   },
 };
 </script>

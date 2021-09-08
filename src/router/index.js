@@ -38,8 +38,8 @@ const routes = [
         path: '/pre',
         name:'Pre',
         component: () => import(/* webpackChunkName: "about" */'../views/Pre.vue')
-        /*,
-        meta: {requireAuth: true}*/
+        ,
+        meta: {requireAuth: true}
       },
       {
         path: '/hospedaje',

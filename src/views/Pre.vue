@@ -1,12 +1,10 @@
 <template>
   <div class="container Preguntas">
     <div class="row">
-      <h5 class="mt-3 justify-content-center">
-        Perfil de usuario
-      </h5>
+      <h5 class="mt-3 justify-content-center">Perfil de usuario</h5>
       <div class="card mt-5 ml-5 col-md-11 justify-content-center cursos">
         <div class="card-body">
-          <form>
+          <form @submit.prevent="editarInfo(datos)">
             <div class="form-row">
               <div class="form-group col-md-12">
                 <label for="inputAddress">Nombre completo</label>
@@ -16,6 +14,7 @@
                   id="inputAddress"
                   placeholder="NOMBRE COMPLETO"
                   v-model="datos.nombre"
+                  :text="nombre"
                 />
               </div>
               <div class="form-group col-md-6">
@@ -84,9 +83,12 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputState">Pais</label>
-                <select id="inputState" class="form-control" v-model="contrieP">
+                <select id="inputState" class="form-control" v-model="datos.pais">
                   <option selected>Choose...</option>
-                  <option v-for="(country,index) in countries_list" :key="index">
+                  <option
+                    v-for="(country, index) in countries_list"
+                    :key="index"
+                  >
                     {{ country.name }}
                   </option>
                 </select>
@@ -96,7 +98,7 @@
                 <select
                   id="inputState1"
                   class="form-control"
-                  v-model="contrieC"
+                  v-model="datos.ciudad"
                 >
                   <option selected>Choose...</option>
                   <option v-for="(country, idx) in countries_list" :key="idx">
@@ -105,8 +107,7 @@
                 </select>
               </div>
             </div>
-            <button type="submit" class="btn btn-warning mx-2" @click="datosId()">Editar</button>
-            <button type="submit" class="btn btn-primary" :text="id"></button>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
           </form>
         </div>
       </div>
@@ -116,7 +117,7 @@
 
 <script>
 import axios from "axios";
-import {  mapMutations} from "vuex";
+import { mapMutations } from "vuex";
 export default {
   name: "Preguntas",
   data() {
@@ -130,21 +131,42 @@ export default {
         correo: "",
         fechaNacimiento: "",
         ingles: "",
+        pais: '',
+        ciudad: '',
       },
       countries_list: [],
-      contrieP: null,
-      contrieC: null,
     };
   },
   created() {
     this.datosId();
-    
   },
   methods: {
-     ...mapMutations(['obtenerUsuario']), 
-    datosId() {
-      console.log('hola')
+    ...mapMutations(["obtenerUsuario"]),
+    datosId(id) {
+      //var id = this.$store.state.id
+      console.log(id);
+      this.axios
+        .get(`/datos/${this.$store.state.id}`)
+        .then((res) => {
+         console.log(res)
+         this.datos = res.data
+        })
+        .catch((e) => {
+          console.log(e.response);
+        });
     },
+    editarInfo(item){
+      this.axios.put(`/datos/${item.this.$store.state.id}`, item)
+      .then((res) => {
+         console.log(res)
+         const index = this.datos.findIndex(n => n._id === res.data._id)
+         this.datos[index] = res.data
+        })
+        .catch((e) => {
+          console.log(e.response);
+        });
+
+    }
   },
   mounted() {
     axios
@@ -164,7 +186,6 @@ h5 {
   margin-right: auto;
   font-weight: bold;
 }
-
 
 .cursos {
   background-color: #14254c;

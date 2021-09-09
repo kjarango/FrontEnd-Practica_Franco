@@ -41,22 +41,9 @@ export default new Vuex.Store({
         state.ingles = state.datosDb.data.ingles
         state.inscripcion = state.datosDb.data.inscripcion
         state.role = state.datosDb.data.role
-console.log(state.role )
+console.log(state.id )
       }
     },
-    registrarUsuario(state, payload){
-      state.token = payload;
-      if(payload === ''){
-        state.datosDb = ''
-      }else{
-        state.datosDb = decode(payload);
-        if(this.state.datosDb.data.role == 'ADMIN' ){
-          router.push({name:'UsusarioAdmin'})
-        }else{
-        router.push({name:'Destinos'})
-        }
-      }
-    }
   },
   actions: {
     guardarUsuario({commit}, payload){

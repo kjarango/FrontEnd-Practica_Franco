@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="card cardIscrip mt-5 ml-5 p-3 col-md-11">
+      <div class="card cardIscrip mt-5 ml-7 p-3 col-md-11">
         <h5 class="card-title">INSCRIPCION</h5>
-        <form class="form-row">
+        <form class="form-row" @submit.prevent="matricular()">
           <div class="form-group col-md-4">
             <label for="inputState">Destino</label>
             <select id="inputState" class="form-control">
@@ -13,8 +13,8 @@
           </div>
           <div class="form-group col-md-4">
             <label for="inputState">Escuela</label>
-            <select id="inputState" class="form-control" v-model="escu">
-              <option selected>Choose...</option>
+            <select id="inputState" class="form-control" v-model="inscripcion.escu">
+              <option selected>Selcciones La Escuela</option>
               <option
                 v-for="campus in escuela"
                 :key="campus._id"
@@ -26,8 +26,8 @@
           </div>
           <div class="form-group col-md-4">
             <label for="inputState">Curso</label>
-            <select id="inputState" class="form-control" v-model="curs">
-              <option selected>Choose...</option>
+            <select id="inputState" class="form-control" v-model="inscripcion.curs">
+              <option selected>Seleccione el curso</option>
               <option
                 v-for="cursos in curso"
                 :key="cursos._id"
@@ -39,7 +39,7 @@
           </div>
           <div class="form-group col-md-4">
             <label for="hospedajes">Alojamiento</label>
-            <select id="hospedajes" class="form-control" v-model="hospe">
+            <select id="hospedajes" class="form-control" v-model="inscripcion.hospe">
               <option selected>Selecciona un alojamiento...</option>
               <option
                 v-for="hospedajes in hospedaje"
@@ -52,7 +52,7 @@
           </div>
           <div class="form-group col-md-4">
             <label for="hospedajes">Seleccione Fecha De Inicio</label>
-            <select id="hospedajes" class="form-control" v-model="fechaIn">
+            <select id="hospedajes" class="form-control" v-model="inscripcion.fechaIn">
               <option selected>Selecciona una fecha...</option>
               <option
                 v-for="fecha in fechaIni"
@@ -63,38 +63,23 @@
               </option>
             </select>
           </div>
+          <button class="btn btn-primary col-md-4 h-20" type="submit">continuar</button>
         </form>
       </div>
-      <br /><!--
-      <div class="col-sm-4 cardIscrip mb-5">
-        <div class="card mt-5">
-          <div class="card-body">
+      <br />
+      <div class="col-sm-4 cardMatric mb-5" >
+        <div class="card mt-5" v-if="mostrar == true" >
+          <div class="card-body" >
             <h5 class="card-title">Valor inscripcion</h5>
             <p class="card-text">
-              $$$$$
+              $ {{matricula}}
             </p>
-            <a href="#" class="btn btn-primary mx-2">Cancelar</a>
-            <a href="#" class="btn btn-primary">OK</a>
-          </div>
-        </div>
-      </div>-->
-      <div class="col-sm-4 cardMatric mb-5">
-        <div class="card mt-5">
-          <div class="card-body">
-            <h5 class="card-title">Realizar Matricula</h5>
-
-            <div v-for="valor in fechaIni" :key="valor._id">
-              <b-button v-b-modal.modal-1>Matricula</b-button>
-
-              <b-modal id="modal-1" title="Matricula">
-                <p class="my-4">Valor De la Matricula</p>
-                <p class="my-4">$$ {{ valor.constoInscrip }}</p>
-              </b-modal>
-            </div>
+            <a href="/CursosInscrip" class="btn btn-primary mx-2" >Cancelar</a>
+            <a href="/Pre" class="btn btn-primary">OK</a>
           </div>
         </div>
       </div>
-      <div class="card cardMatric col-12 my-3 info ml-5">
+      <div class="card cardIscrip col-11 my-3 info ml-5">
         <div class="card-body">
           <h5 class="card-title">INCLUYE</h5>
           <p class="card-text">- Pack de bienvenida</p>
@@ -108,18 +93,24 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       hospedaje: [],
-      hospe: null,
       escuela: [],
-      escu: null,
       curso: [],
-      curs: null,
       fechaIni: [],
-      fechaIn: null,
-      costo: null,
+      mostrar: false,
+      matric:[],
+      inscripcion:
+      {
+        hospe: '',
+        escu: '',
+        curs: '',
+        fechaIn: '',
+        costo: '600.00'
+      }
     };
   },
   created() {
@@ -127,8 +118,43 @@ export default {
     this.listarHEscuela();
     this.listarCurso();
     this.listarFechaInicio();
+    this.listarInscripcion();
+
+  },
+  computed: {
+    matricula(){
+      return this.$store.state.matricula;
+    },
+     ...mapState(["token"])
   },
   methods: {
+    matricular(){
+      let config = {
+        headers: {
+          token: this.token
+        }
+      }
+      this.mostrar = true
+      console.log(this.inscripcion);
+      this.axios.post('/nuevaInscrip', this.inscripcion, config)
+      .then(res =>{
+          this.matric.push(res.data)
+      })
+      .catch(e =>{
+        console.log(e.response)
+      })
+    },
+    listarInscripcion() {
+      this.axios
+        .get("/inscripcion")
+        .then((res) => {
+          console.log(res.data);
+          this.matric = res.data;
+        })
+        .catch((e) => {
+          console.log(e.response);
+        });
+    },
     listarHospedaje() {
       this.axios
         .get("/hospedaje")
@@ -173,6 +199,7 @@ export default {
           console.log(e.response);
         });
     },
+    
   },
 };
 </script>

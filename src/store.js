@@ -21,7 +21,8 @@ export default new Vuex.Store({
     ciudad:'',
     ingles:'',
     inscripcion:'',
-    role:''
+    role:'',
+    matricula:' 600.00'
   },
   mutations: {
     obtenerUsuario(state, payload){

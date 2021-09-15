@@ -13,7 +13,11 @@
           </div>
           <div class="form-group col-md-4">
             <label for="inputState">Escuela</label>
-            <select id="inputState" class="form-control" v-model="inscripcion.escu">
+            <select
+              id="inputState"
+              class="form-control"
+              v-model="inscripcion.escu"
+            >
               <option selected>Selcciones La Escuela</option>
               <option
                 v-for="campus in escuela"
@@ -26,7 +30,11 @@
           </div>
           <div class="form-group col-md-4">
             <label for="inputState">Curso</label>
-            <select id="inputState" class="form-control" v-model="inscripcion.curs">
+            <select
+              id="inputState"
+              class="form-control"
+              v-model="inscripcion.curs"
+            >
               <option selected>Seleccione el curso</option>
               <option
                 v-for="cursos in curso"
@@ -39,7 +47,11 @@
           </div>
           <div class="form-group col-md-4">
             <label for="hospedajes">Alojamiento</label>
-            <select id="hospedajes" class="form-control" v-model="inscripcion.hospe">
+            <select
+              id="hospedajes"
+              class="form-control"
+              v-model="inscripcion.hospe"
+            >
               <option selected>Selecciona un alojamiento...</option>
               <option
                 v-for="hospedajes in hospedaje"
@@ -52,7 +64,11 @@
           </div>
           <div class="form-group col-md-4">
             <label for="hospedajes">Seleccione Fecha De Inicio</label>
-            <select id="hospedajes" class="form-control" v-model="inscripcion.fechaIn">
+            <select
+              id="hospedajes"
+              class="form-control"
+              v-model="inscripcion.fechaIn"
+            >
               <option selected>Selecciona una fecha...</option>
               <option
                 v-for="fecha in fechaIni"
@@ -63,19 +79,19 @@
               </option>
             </select>
           </div>
-          <button class="btn btn-primary col-md-4 h-20" type="submit">continuar</button>
+          <button class="btn btn-primary col-md-4 h-20" type="submit">
+            continuar
+          </button>
         </form>
       </div>
       <br />
-      <div class="col-sm-4 cardMatric mb-5" >
-        <div class="card mt-5" v-if="mostrar == true" >
-          <div class="card-body" >
+      <div class="col-sm-4 cardMatric mb-5">
+        <div class="card mt-5" v-if="mostrar == true">
+          <div class="card-body">
             <h5 class="card-title">Valor inscripcion</h5>
-            <p class="card-text">
-              $ {{matricula}}
-            </p>
-            <a href="/CursosInscrip" class="btn btn-primary mx-2" >Cancelar</a>
-            <a href="/Pre" class="btn btn-primary">OK</a>
+            <p class="card-text">$ {{ matricula }}</p>
+            <a href="/CursosInscrip" class="btn btn-primary mx-2">Cancelar</a>
+            <a href="/Pre" class="btn btn-primary" @click="downloadPDF()">OK</a>
           </div>
         </div>
       </div>
@@ -94,6 +110,8 @@
 
 <script>
 import { mapState } from "vuex";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 export default {
   data() {
     return {
@@ -102,15 +120,14 @@ export default {
       curso: [],
       fechaIni: [],
       mostrar: false,
-      matric:[],
-      inscripcion:
-      {
-        hospe: '',
-        escu: '',
-        curs: '',
-        fechaIn: '',
-        costo: '600.00'
-      }
+      matric: [],
+      inscripcion: {
+        hospe: "",
+        escu: "",
+        curs: "",
+        fechaIn: "",
+        costo: "600.00",
+      },
     };
   },
   created() {
@@ -119,30 +136,30 @@ export default {
     this.listarCurso();
     this.listarFechaInicio();
     this.listarInscripcion();
-
   },
   computed: {
-    matricula(){
+    matricula() {
       return this.$store.state.matricula;
     },
-     ...mapState(["token"])
+    ...mapState(["token"]),
   },
   methods: {
-    matricular(){
+    matricular() {
       let config = {
         headers: {
-          token: this.token
-        }
-      }
-      this.mostrar = true
+          token: this.token,
+        },
+      };
+      this.mostrar = true;
       console.log(this.inscripcion);
-      this.axios.post('/nuevaInscrip', this.inscripcion, config)
-      .then(res =>{
-          this.matric.push(res.data)
-      })
-      .catch(e =>{
-        console.log(e.response)
-      })
+      this.axios
+        .post("/nuevaInscrip", this.inscripcion, config)
+        .then((res) => {
+          this.matric.push(res.data);
+        })
+        .catch((e) => {
+          console.log(e.response);
+        });
     },
     listarInscripcion() {
       this.axios
@@ -199,7 +216,30 @@ export default {
           console.log(e.response);
         });
     },
-    
+    downloadPDF() {
+      var pdf = new jsPDF();
+      pdf.text("conceptos Matricula", 50, 50);
+      var columns = [
+        "Destino",
+        "Escuela",
+        "Curso",
+        "Alojamiento",
+        "Fecha- Inicio",
+        "Valor",
+      ];
+      var data = [
+        [
+          "Australia",
+          "Sidney",
+          "Ingles General",
+          "Habitacion Campus",
+          "20 Enero 2022",
+          "$ 600.00",
+        ],
+      ];
+      pdf.autoTable(columns, data, { margin: { top: 25 } });
+      pdf.save("informacion.pdf");
+    },
   },
 };
 </script>
@@ -208,13 +248,12 @@ export default {
 .cardIscrip {
   margin-left: auto;
   margin-right: auto;
-  background-color:#14254c;
-  color:white
+  background-color: #14254c;
+  color: white;
 }
 
 .cardMatric {
   margin-left: auto;
   margin-right: auto;
 }
-
 </style>

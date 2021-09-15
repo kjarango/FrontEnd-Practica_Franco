@@ -17,6 +17,7 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 // Agregamos la URL base de nuestra API
+// ruta de heroku  https://git.heroku.com/app-nodejs-oolloo.git
 axios.defaults.baseURL = 'http://localhost:3000/api';
 
 

@@ -5,7 +5,7 @@
       <div class="row justify-content-center align-items-center">
         <div class="card mt-5">
           <div class="card-header">Registro</div>
-          <div class="card-body">
+          <div class="card-body text-white login">
             <form @submit.prevent="agregaruser()">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -87,3 +87,11 @@ export default {
   }
 }
 </script>
+
+
+<style >
+.login{
+  background-color: #14254c ;
+  color: white;
+}
+</style>

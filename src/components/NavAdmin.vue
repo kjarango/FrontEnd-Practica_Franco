@@ -23,7 +23,7 @@ export default {
 #nav {
   padding: 20px;
   background-color: #14254c;
-}
+}  
 
 #nav a {
   font-weight: bold;

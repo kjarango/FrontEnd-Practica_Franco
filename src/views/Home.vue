@@ -3,9 +3,9 @@
     <Nav/>
     <div class="container">
       <div class="row justify-content-center align-items-center">
-        <div class="card mt-5">
+        <div class="card login mt-5">
           <div class="card-header">Iniciar Sesion</div>
-          <div class="card-body">
+          <div class="card-body text-white login">
             <form @submit.prevent="login()">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -78,3 +78,10 @@ export default {
   }
 }
 </script>
+
+<style >
+.login{
+  background-color: #14254c ;
+  
+}
+</style>

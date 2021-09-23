@@ -4,7 +4,7 @@
       <h5 class="mt-3 justify-content-center">Perfil de usuario</h5>
       <div class="card mt-5 ml-5 col-md-11 justify-content-center cursos">
         <div class="card-body">
-          <form @submit.prevent="editarInfo(datos)">
+          <form @submit.prevent="editarInfo(datos._id)">
             <div class="form-row">
               <div class="form-group col-md-12">
                 <label for="inputAddress">Nombre completo</label>
@@ -142,7 +142,7 @@ export default {
   },
   methods: {
     ...mapMutations(["obtenerUsuario"]),
-    datosId(id) {
+     datosId(id) {
       //var id = this.$store.state.id
       console.log(id);
       this.axios
@@ -156,10 +156,10 @@ export default {
         });
     },
     editarInfo(item){
-      this.axios.put(`/datos/${item.this.$store.state.id}`, item)
+      this.axios.put(`/datos/${this.$store.state.id}`, item)
       .then((res) => {
          console.log(res)
-         const index = this.datos.findIndex(n => n._id === res.data._id)
+         const index = this.datos.findIndex(datos => datos._id === res.data._id)
          this.datos[index] = res.data
         })
         .catch((e) => {

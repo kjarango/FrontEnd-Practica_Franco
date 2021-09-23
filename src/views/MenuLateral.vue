@@ -21,9 +21,9 @@
           </a>
         </li>
         <li>
-          <a href="CursosInscrip">
-            <i class="fa fa-bar-chart-o"></i>
-            <span class="nav-text"> Inscripcion </span>
+          <a href="Pre">
+            <i class="fa fa-info"></i>
+            <span class="nav-text"> Mi Perfil </span>
           </a>
         </li>
         <li>
@@ -33,9 +33,9 @@
           </a>
         </li>
         <li>
-          <a href="Pre">
-            <i class="fa fa-info"></i>
-            <span class="nav-text"> Mi Perfil </span>
+          <a href="CursosInscrip">
+            <i class="fa fa-bar-chart-o"></i>
+            <span class="nav-text"> Inscripcion </span>
           </a>
         </li>
         <li>

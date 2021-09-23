@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row justify-content-center align-items-center">
         <div class="col-sm-6 col-6 col-md-8 col-lg-12">
-          <div class="card mt-5" v-if="terminar == false">
+          <div class="card mt-5" >
             <div
               class="card-body"
               v-for="encuesta in preguntas"
@@ -28,19 +28,8 @@
                 <label for="huey">{{ encuesta.opcE }}</label>
               </div>
             </div>
-            <button class="btn btn-primary w-30" @click="terminarEncuesta()">
-              Terminar
-            </button>
-          </div>
-        </div>
-        <div class="card mt-5" v-if="terminar == true">
-          <div class="card-body">
-            <h5 class="card-title">Felicidades!!</h5>
-            <p>
-              terminaste tu encuesta por favor realiza tu matricula y/o ponte en
-              contacto con nosotros
-            </p>
-            <button class="btn btn-primary w-30">Matricula</button>
+            
+            <a href="/newQuest" class="btn btn-primary my-5">Siguiente</a>
           </div>
         </div>
       </div>
@@ -70,9 +59,7 @@ export default {
           console.log(e.response);
         });
     },
-    terminarEncuesta() {
-      this.terminar = true;
-    },
+    
   },
 };
 </script>

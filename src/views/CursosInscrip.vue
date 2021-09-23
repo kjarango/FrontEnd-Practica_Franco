@@ -90,8 +90,8 @@
           <div class="card-body">
             <h5 class="card-title">Valor inscripcion</h5>
             <p class="card-text">$ {{ matricula }}</p>
-            <a href="/CursosInscrip" class="btn btn-primary mx-2">Cancelar</a>
-            <a href="/Pre" class="btn btn-primary" @click="downloadPDF()">OK</a>
+            <a href="/CursosInscrip" class="btn btn-primary mx-2">Declinar</a>
+            <a href="/Pre" class="btn btn-primary" @click="downloadPDF()">Pagar</a>
           </div>
         </div>
       </div>
